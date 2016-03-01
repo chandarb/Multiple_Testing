@@ -43,6 +43,13 @@ simulatemethod <- function(n,t = 0.95){
   return(vec)
 }
 
+# calculates P(s_t = 0 | z_1, ..., z_(t-1))
+# note P(s_t = 1 | z_1, ..., z_(t-1)) = 
+# 1 - P(s_t = 0 | z_1, ..., z_(t-1))
+p_next_null = function(posteriorm1){
+  return(posteriorm1[1] * pinull + posteriorm1[2] * (1 - pisignal))
+}
+
 classifications <- simulatemethod(1000)
 #Doesn't control overall error rate
 errorrate <- mean(classifications != states)
